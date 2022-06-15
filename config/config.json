@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
-    "database": "forum",
+    "password": "s8071141",
+    "database": "forum_demo",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
