@@ -6,9 +6,13 @@ const admin = require('./modules/admin')
 
 // load controller
 const restController = require('../controllers/restaurant-controller')
+const userController = require('../controllers/user-controller')
 
-// setting router
+// setting router[admin]
 router.use('/admin', admin)
+// setting router[user]
+router.get('/signup', userController.signUpPage)
+router.post('/signup', userController.signUp)
 // setting router[restaurant]
 router.get('/restaurants', restController.getRestaurants)
 
