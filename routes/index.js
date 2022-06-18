@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { generalErrorHandler } = require('../middleware/error-handler')
 
 // load modules
 const admin = require('./modules/admin')
@@ -19,5 +20,6 @@ router.get('/restaurants', restController.getRestaurants)
 router.use('/', (req, res) => {
   res.redirect('/restaurants')
 })
+router.use('/', generalErrorHandler)
 
 module.exports = router
