@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 // load modules
@@ -14,6 +15,9 @@ router.use('/admin', admin)
 // setting router[user]
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
+router.get('/signin', userController.signInPage)
+router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
+router.get('/logout', userController.logout)
 // setting router[restaurant]
 router.get('/restaurants', restController.getRestaurants)
 

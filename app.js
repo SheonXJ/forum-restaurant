@@ -4,6 +4,7 @@ const session = require('express-session')
 const flash = require('connect-flash')
 const exhbs = require('express-handlebars')
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 
 // setting server
 const app = express()
@@ -16,6 +17,7 @@ app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
 app.use(session({ secret: 'SECRET', resave: false, saveUninitialized: false }))
 app.use(flash())
+usePassport(app)
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')

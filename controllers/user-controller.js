@@ -20,10 +20,22 @@ const userController = {
         password: hash
       }))
       .then(() => {
-        req.flash('success_message', '成功註冊帳號！')
+        req.flash('success_messages', '成功註冊帳號！')
         return res.redirect('/signin')
       })
       .catch(err => next(err))
+  },
+  signInPage: (req, res) => {
+    return res.render('signin')
+  },
+  signIn: (req, res) => {
+    req.flash('success_messages', '成功登入！')
+    return res.redirect('/restaurants')
+  },
+  logout: (req, res) => {
+    req.flash('success_messages', '成功登出！')
+    req.logout()
+    return res.redirect('/signin')
   }
 }
 
