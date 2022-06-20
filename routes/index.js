@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const { generalErrorHandler } = require('../middleware/error-handler')
-const { authenticator } = require('../middleware/auth')
+const { authenticator, authenticatorAdmin } = require('../middleware/auth')
 
 // load modules
 const admin = require('./modules/admin')
@@ -12,7 +12,7 @@ const restController = require('../controllers/restaurant-controller')
 const userController = require('../controllers/user-controller')
 
 // setting router[admin]
-router.use('/admin', admin)
+router.use('/admin', authenticatorAdmin, admin)
 // setting router[user]
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
