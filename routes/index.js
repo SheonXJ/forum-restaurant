@@ -10,6 +10,7 @@ const admin = require('./modules/admin')
 // load controller
 const restController = require('../controllers/restaurant-controller')
 const userController = require('../controllers/user-controller')
+const commentController = require('../controllers/comment-controller')
 
 // setting router[admin]
 router.use('/admin', authenticatorAdmin, admin)
@@ -19,6 +20,8 @@ router.post('/signup', userController.signUp)
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
 router.get('/logout', userController.logout)
+// setting router[comment]
+router.post('/comments', authenticator, commentController.postComment)
 // setting router[restaurant]
 router.get('/restaurants/:id/dashboard', authenticator, restController.getDashboard)
 router.get('/restaurants/:id', authenticator, restController.getRestaurant)

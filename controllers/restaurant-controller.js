@@ -24,7 +24,6 @@ const restaurantController = {
           ...res,
           description: res.description.substring(0, 50)
         }))
-        console.log(getPagination(limit, page, restaurants.count))
         return res.render('restaurants', {
           restaurants: data,
           categories,
