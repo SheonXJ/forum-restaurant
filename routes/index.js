@@ -16,6 +16,10 @@ const commentController = require('../controllers/comment-controller')
 // setting router[admin]
 router.use('/admin', authenticatorAdmin, admin)
 // setting router[user]
+router.post('/like/:restaurantId', authenticator, userController.addLike)
+router.delete('/like/:restaurantId', authenticator, userController.removeLike)
+router.post('/favorite/:restaurantId', authenticator, userController.addFavorite)
+router.delete('/favorite/:restaurantId', authenticator, userController.removeFavorite)
 router.put('/users/:id', authenticator, upload.single('image'), userController.putUser)
 router.get('/users/:id/edit', authenticator, userController.editUser)
 router.get('/users/:id', authenticator, userController.getUser)
@@ -29,6 +33,7 @@ router.post('/comments', authenticator, commentController.postComment)
 router.delete('/comments/:id', authenticator, commentController.deleteComment)
 // setting router[restaurant]
 router.get('/restaurants/:id/dashboard', authenticator, restController.getDashboard)
+router.get('/restaurants/feeds', authenticator, restController.getFeeds)
 router.get('/restaurants/:id', authenticator, restController.getRestaurant)
 router.get('/restaurants', authenticator, restController.getRestaurants)
 
