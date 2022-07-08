@@ -1,4 +1,5 @@
 const { Restaurant, Category, User, Comment } = require('../models')
+const helper = require('../helpers/auth-helpers')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
 const restaurantController = {
@@ -41,7 +42,7 @@ const restaurantController = {
     return Restaurant.findByPk(req.params.id, {
       include: [
         Category,
-        { model: Comment, include: User },
+        { model: Comment, include: User }
         // { model: User, as: 'FavoritedUsers' }
       ]
     })
@@ -94,6 +95,22 @@ const restaurantController = {
     ])
       .then(([restaurants, comments]) => {
         return res.render('feeds', { restaurants, comments })
+      })
+      .catch(err => next(err))
+  },
+  getTopRestaurants: (req, res, next) => {
+    return Restaurant.findAll({
+      include: { model: User, as: 'FavoritedUsers' }
+    })
+      .then(restaurants => {
+        let data = restaurants.sort((a, b) => b.dataValues.FavoritedUsers.length - a.dataValues.FavoritedUsers.length).slice(0, 10)
+        data = data.map(res => ({
+          ...res.dataValues,
+          description: res.dataValues.description.substring(0, 50),
+          favoritedCount: res.dataValues.FavoritedUsers.length,
+          isFavorited: helper.getUser(req).FavoritedRestaurants.some(userRes => userRes.id === res.dataValues.id)
+        }))
+        res.render('top-restaurants', { restaurants: data })
       })
       .catch(err => next(err))
   }
