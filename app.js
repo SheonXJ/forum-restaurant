@@ -5,7 +5,7 @@ const flash = require('connect-flash')
 const exhbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const path = require('path')
-const { pages } = require('./routes')
+const { pages, apis } = require('./routes')
 const usePassport = require('./config/passport')
 const { getUser } = require('./helpers/auth-helpers')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
@@ -35,6 +35,7 @@ app.use((req, res, next) => {
   res.locals.user = getUser(req)
   next()
 })
+app.use('/api', apis)
 app.use(pages)
 
 app.listen(port, () => {
