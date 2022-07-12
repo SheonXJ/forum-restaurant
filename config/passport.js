@@ -1,7 +1,11 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const passportJWT = require('passport-jwt')
 const bcrypt = require('bcryptjs')
 const { User, Restaurant } = require('../models')
+
+const JWTStrategy = passportJWT.Strategy
+const ExtractJWT = passportJWT.ExtractJwt
 
 module.exports = app => {
   // 初始化 Passport 模組
@@ -22,6 +26,24 @@ module.exports = app => {
           return done(null, user)
         })
       })
+  }))
+
+  // 設定ＪＷＴ登入策略
+  const jwtOptions = {
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET
+  }
+  passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
+    User.findByPk(jwtPayload.id, {
+      include: [
+        { model: Restaurant, as: 'FavoritedRestaurants' },
+        { model: Restaurant, as: 'LikeRestaurants' },
+        { model: User, as: 'Followers' },
+        { model: User, as: 'Followings' }
+      ]
+    })
+      .then(user => cb(null, user))
+      .catch(err => cb(err))
   }))
 
   // 序列化/反序列化(serialize/deserialize)

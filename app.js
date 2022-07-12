@@ -1,3 +1,8 @@
+// 判別開發環境
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // require package
 const express = require('express')
 const session = require('express-session')
@@ -9,11 +14,6 @@ const { pages, apis } = require('./routes')
 const usePassport = require('./config/passport')
 const { getUser } = require('./helpers/auth-helpers')
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
-
-// 判別開發環境
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
 
 // setting server
 const app = express()
