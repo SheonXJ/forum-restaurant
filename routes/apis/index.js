@@ -8,9 +8,16 @@ const { authenticated, authenticatedAdmin } = require('../../middleware/api-auth
 const { apiErrorHandler } = require('../../middleware/error-handler')
 const admin = require('../apis/modules/admin')
 
+// setting router[admin]
 router.use('/admin', authenticated, authenticatedAdmin, admin)
+// setting router[user]
 router.post('/signin', passport.authenticate('local', { session: false }), userController.signIn)
 router.post('/signup', userController.signUp)
+// setting router[restaurant]
+router.get('/restaurants/top', authenticated, restController.getTopRestaurants)
+router.get('/restaurants/feeds', authenticated, restController.getFeeds)
+router.get('/restaurants/:id/dashboard', authenticated, restController.getDashboard)
+router.get('/restaurants/:id', authenticated, restController.getRestaurant)
 router.get('/restaurants', authenticated, restController.getRestaurants)
 router.use('/', apiErrorHandler)
 
