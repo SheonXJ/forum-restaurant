@@ -4,6 +4,7 @@ const passport = require('passport')
 
 const userController = require('../../controllers/apis/user-controller')
 const restController = require('../../controllers/apis/restaurant-controller')
+const commentController = require('../../controllers/apis/comment-controller')
 const { authenticated, authenticatedAdmin } = require('../../middleware/api-auth')
 const { apiErrorHandler } = require('../../middleware/error-handler')
 const admin = require('../apis/modules/admin')
@@ -23,6 +24,9 @@ router.get('/users/:id/edit', authenticated, userController.editUser)
 router.get('/users/:id', authenticated, userController.getUser)
 router.post('/signin', passport.authenticate('local', { session: false }), userController.signIn)
 router.post('/signup', userController.signUp)
+// setting router[comment]
+router.delete('/comments/:id', authenticated, commentController.deleteComment)
+router.post('/comments', authenticated, commentController.postComment)
 // setting router[restaurant]
 router.get('/restaurants/top', authenticated, restController.getTopRestaurants)
 router.get('/restaurants/feeds', authenticated, restController.getFeeds)
