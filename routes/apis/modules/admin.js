@@ -11,9 +11,16 @@ router.put('/categories/:id', categoryController.putCategory)
 router.get('/categories/:id', categoryController.getCategories)
 router.post('/categories', categoryController.postCategories)
 router.get('/categories', categoryController.getCategories)
+// setting router[user]
+router.patch('/users/:id', adminController.patchUser)
+router.get('/users', adminController.getUsers)
 // setting router[restaurants]
+router.put('/restaurants/:id', upload.single('image'), adminController.putRestaurant)
+router.get('/restaurants/:id/edit', adminController.editRestaurant)
+router.get('/restaurants/create', adminController.createRestaurant)
+router.get('/restaurants/:id', adminController.getRestaurant)
 router.post('/restaurants', upload.single('image'), adminController.postRestaurant)
-router.get('/restaurants/:id', adminController.deleteRestaurant)
+router.delete('/restaurants/:id', adminController.deleteRestaurant)
 router.get('/restaurants', adminController.getRestaurants)
 router.get('/', (req, res) => res.redirect('/admin/restaurants'))
 
