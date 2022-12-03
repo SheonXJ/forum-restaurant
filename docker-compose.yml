@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    image: node:16-alpine
+    command: sh -c "npm i && npm run dev"
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      NODE_ENV: dockerDev
+  
+  DockerMysql:
+    image: mysql:8
+    # 避免因為table名稱大小寫，產生查表時找不到table的問題
+    command: --lower_case_table_names=1
+    ports:
+      - 1000:3306
+    volumes:
+      - res-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: forum_demo
+
+volumes:
+  res-mysql-data:
