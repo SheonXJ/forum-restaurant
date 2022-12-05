@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "root",
+    "username": "DevAuth",
     "password": "password",
     "database": "forum_demo",
     "host": "127.0.0.1",

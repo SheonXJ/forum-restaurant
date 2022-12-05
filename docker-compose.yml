@@ -3,6 +3,7 @@ version: '3.8'
 services:
   app:
     image: node:16-alpine
+    platform: ${platform} #帶入系統架構的參數
     command: sh -c "npm i && npm run dev"
     ports:
       - 3000:3000
