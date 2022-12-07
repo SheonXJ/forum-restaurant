@@ -1,13 +1,24 @@
 <h1>
   <div>
-  forum-restaurant(<a href="https://pure-thicket-75563.herokuapp.com/users/login">Live Demo</a>)
+  forum-restaurant(<a href="https://hidden-badlands-15238.herokuapp.com/signin">Live Demo</a>)
   </div>
 </h1>
 
+此為簡易餐廳論壇，主要使用`Bootstrap`搭配`Express`，Demo資料庫使用AWS RDS建立`MySQL`。
+
+使用者可以建立餐廳，對特定餐廳進行留言及收藏餐廳。
+
+並設有後台管理功能，可以針對餐廳、留言、分類等資料進行管理。
+
+# 目錄<!-- omit in toc -->
+- [安裝流程](#安裝流程)
+    - [`Github-Repo`](#github-repo)
+    - [`Docker-Image` \& `Docker-compose`](#docker-image--docker-compose)
+- [種子資料](#種子資料)
 
 # 安裝流程
 
-提供兩種安裝方式，可以透過`Github`下載專案在本地測試，也可以透過`Docker`直接下載`image`進行測試。
+提供兩種安裝方式，可以透過`Github`下載專案在本地測試，也可以透過`Docker`直接拉取`image`進行測試。
 
 ### `Github-Repo`
 
@@ -122,6 +133,12 @@
   
 
 # 種子資料
+  ```
+  name: root
+  email: root@example.com
+  password: 12345678
+  ```
+
   ```
   name: User1
   email: user1@example.com

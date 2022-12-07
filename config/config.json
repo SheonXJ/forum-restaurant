@@ -14,7 +14,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "CLEARDB_DATABASE_URL"
+    "username": "admin",
+    "password": "mypassword",
+    "database": "forum_demo",
+    "host": "demo-mysql-aws.c8q6ft7saijy.ap-northeast-1.rds.amazonaws.com",
+    "dialect": "mysql"
   },
   "travis": {
     "username": "travis",
